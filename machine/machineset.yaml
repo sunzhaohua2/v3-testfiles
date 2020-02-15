@@ -1,0 +1,62 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: zhsun1-l7md6
+  name: zhsun1-l7md6-worker-us-east-2c
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: zhsun1-l7md6
+      machine.openshift.io/cluster-api-machineset: zhsun1-l7md6-worker-us-east-2c
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        machine.openshift.io/cluster-api-cluster: zhsun1-l7md6
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: zhsun1-l7md6-worker-us-east-2c
+    spec:
+      metadata:
+        creationTimestamp: null
+      providerSpec:
+        value:
+          ami:
+            id: ami-04a79d8d7cfa540cc
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+          - ebs:
+              iops: 0
+              volumeSize: 120
+              volumeType: gp2
+          credentialsSecret:
+            name: aws-cloud-credentials
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: zhsun1-l7md6-worker-profile
+          instanceType: m4.xlarge
+          kind: AWSMachineProviderConfig
+          metadata:
+            creationTimestamp: null
+          placement:
+            availabilityZone: us-east-2c
+            region: us-east-2
+          publicIp: null
+          securityGroups:
+          - filters:
+            - name: tag:Name
+              values:
+              - zhsun1-l7md6-worker-sg
+          subnet:
+            filters:
+            - name: tag:Name
+              values:
+              - zhsun1-l7md6-private-us-east-2c
+          tags:
+          - name: kubernetes.io/cluster/zhsun1-l7md6
+            value: owned
+          userDataSecret:
+            name: worker-user-data
