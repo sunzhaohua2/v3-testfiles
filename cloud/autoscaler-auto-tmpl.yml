@@ -12,7 +12,7 @@ spec:
         command: ["sleep",  "300"]
         resources:
           requests:
-            memory: 500Mi
+            memory: 2G
             cpu: 500m
       restartPolicy: Never
   backoffLimit: 4
