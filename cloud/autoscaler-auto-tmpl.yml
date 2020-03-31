@@ -12,9 +12,9 @@ spec:
         command: ["sleep",  "3000"]
         resources:
           requests:
-            memory: 2G
+            memory: 1G
             cpu: 500m
       restartPolicy: Never
   backoffLimit: 4
-  completions: 50
-  parallelism: 50
+  completions: 100
+  parallelism: 100
